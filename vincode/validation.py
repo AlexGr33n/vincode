@@ -5,15 +5,15 @@ from .const import correct_chars, chars_weights
 from .raw import translate
 
 
-__all__ = ['check', 'IncorrectVin', 'find_incorrect_symbols']
+__all__ = ['validate', 'IncorrectVinException', 'find_incorrect_symbols']
 
 
-class IncorrectVin(Exception):
+class IncorrectVinException(Exception):
     symbols = None
 
     def __init__(self, *args, **kwargs):
         self.symbols = kwargs.pop('symbols', list())
-        super(IncorrectVin, self).__init__(*args, **kwargs)
+        super(IncorrectVinException, self).__init__(*args, **kwargs)
 
 
 def find_incorrect_symbols(vin):
@@ -35,7 +35,7 @@ def check_vin_numbers(vin):
     return result
 
 
-def check(vin, raise_error=False):
+def validate(vin, raise_error=False):
     if not vin or len(vin) != 17:
         return False
 
@@ -53,7 +53,7 @@ def check(vin, raise_error=False):
             sum += weight * int(trans_vin[pos-1])
     except ValueError as e:  # Случай присутствия запрещённого символа
         if raise_error:
-            raise IncorrectVin(e, symbols=check_vin_numbers(trans_vin))
+            raise IncorrectVinException(e, symbols=check_vin_numbers(trans_vin))
         return False
 
     delta = sum // 11 * 11

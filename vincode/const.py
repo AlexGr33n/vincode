@@ -8,8 +8,8 @@ correct_chars = symbols + numbers
 
 trans_russian = str.maketrans(*(
     # VIN              KEY      WRONG  TO-RUS
-    'АВСЕНКМОРТХУOI' + 'ДФГП' + 'ШЩЯ' + 'cgо',
-    'ABCEHKM0PTXY01' + 'DFGP' + 'IOZ' + 'спо',
+    'АВСЕНКМОРТХУOI' + 'ДФГП' + 'ШЩЯ' + 'cgо' + '!@#$%^&',
+    'ABCEHKM0PTXY01' + 'DFGP' + 'IOZ' + 'спо' + '1234567',
 ))
 
 chars_weights = {

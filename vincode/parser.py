@@ -82,4 +82,4 @@ all_vins = Group(vin) + ZeroOrMore(Suppress(_delimiter) + (Group(vin) ^ SkipTo(_
 
 
 def parse(s):
-    return all_vins.parseString(prepare_string(translate(s)))
+    return all_vins.parseString(prepare_string(s))
