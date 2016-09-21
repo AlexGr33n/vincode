@@ -39,11 +39,14 @@ class TestPrepareString(TestCase):
         self.assertEqual(p('ZFA223000........NM4223000........'),
                          'ZFA223000????????|NM4223000????????')
 
+        self.assertEqual(p('VF1JL???6?????........'), 'VF1JL???6????????')
+
     def test_join(self):
         self.assertEqual(p('LB2 . . .'), 'LB2')
 
     def test_join2(self):
         self.assertEqual(p('ZFA 223000.......'), 'ZFA223000???????')
+        self.assertEqual(p('Х89961130 _ 0AV7_ _ _'), 'X89961130?0AV7???')
 
     def test_join3(self):
         self.assertEqual(p('WKEZZ _ 180 _ _ _ _ _ _ _ _'), 'WKEZZ?180')
@@ -55,3 +58,14 @@ class TestPrepareString(TestCase):
                          'RFBSC10AC???|RFBSH10AC???|RFBSH10WC???|RFBSF10AG|RFBSF10AF'
                          '|RFBB10000|RFBS20000|RFBS21000|RFBS10000???|RFBS10100???'
                          )
+
+    def test_subs(self):
+        self.assertEqual(p('JSAFT… (A03V, B03V, A52V, B52V, L52V, D62V);                        JSAHTX92V… (X92V)'),
+                         'JSAFT???|(A03V|B03V|A52V|B52V|L52V|D62V)|JSAHTX92V???|(X92V)')
+
+    def test_something(self):
+        """
+        WEB 629.011.13.xxxxxxWEB629.001.13.XXXXXXX
+        :return:
+        """
+        pass
