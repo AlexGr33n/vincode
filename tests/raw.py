@@ -49,7 +49,7 @@ class TestPrepareString(TestCase):
         self.assertEqual(p('Х89961130 _ 0AV7_ _ _'), 'X89961130?0AV7???')
 
     def test_join3(self):
-        self.assertEqual(p('WKEZZ _ 180 _ _ _ _ _ _ _ _'), 'WKEZZ?180')
+        self.assertEqual(p('WKEZZ _ 180 _ _ _ _ _ _ _ _'), 'WKEZZ?180????????')
 
     def test_join_and_remove_pattern(self):
         self.assertEqual(p('RFBSC10AC...,RFBSH10AC..., RFBSH10WC…, RFBSF10AG ..., RFBSF10AF ...,'
@@ -62,6 +62,9 @@ class TestPrepareString(TestCase):
     def test_subs(self):
         self.assertEqual(p('JSAFT… (A03V, B03V, A52V, B52V, L52V, D62V);                        JSAHTX92V… (X92V)'),
                          'JSAFT???|(A03V|B03V|A52V|B52V|L52V|D62V)|JSAHTX92V???|(X92V)')
+
+    def test_sparse(self):
+        self.assertEqual(p('Y V 2 ? ? ? ? A ? ? ? ? ? ? ? ? ? '), 'YV2????A?????????')
 
     def test_something(self):
         """

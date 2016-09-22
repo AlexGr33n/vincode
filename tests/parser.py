@@ -4,9 +4,9 @@ from __future__ import unicode_literals, absolute_import
 from unittest import TestCase
 
 from pyparsing import ParseException
-from vincode.parser import *
+from vincode.parser import parse
 
 class TestBasics(TestCase):
 
-    def test_lparent(self):
+    def test_sparse(self):
         pass

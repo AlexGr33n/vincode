@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 
 import re
-from .const import correct_chars, trans_russian
+from .const import correct_chars, length, trans_russian
 
 replace_newlines = re.compile(r'[\r\n]+', re.U | re.M)
 remove_strange_dots = re.compile(r', *\.', re.U)
@@ -40,15 +40,29 @@ def translate(vin, trans_src=None):
         trans = trans_russian
     return vin.translate(trans)
 
+sparse_len = length * 2 - 1
+match_sparse_vin = re.compile(r'[%(cs)s? ]{17,%(maxlen)d}' % dict(cs=correct_chars, maxlen=sparse_len), re.U)
+
 
 def prepare_string(s):
     s1 = s
+
+    s = s.strip()
 
     s = replace_newlines.sub(',', s)
     s = remove_russian_comments.sub('', s)
     s = remove_strange_dots.sub(',', s)
     s = replace_multidots.sub('...,', s)
     s = replace_pattern_symbols.sub('?', s)
+
+    # Y V 2 ? ? ? ? A ? ? ? ? ? ? ? ? ?
+    if len(s) <= length * 2 - 1:
+        sparse_s = translate(s)
+        if match_sparse_vin.fullmatch(sparse_s):
+            joined_s = remove_all_spaces.sub('', sparse_s)
+            if len(joined_s) == length:
+                return joined_s
+
     s = replace_range_delimiters.sub('->', s)
     s = remove_extra_text.sub('', s)
 
