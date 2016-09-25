@@ -35,6 +35,13 @@ def check_vin_numbers(vin):
     return result
 
 
+def valid(vin):
+    if not vin or len(vin) != 17 or find_incorrect_symbols(vin):
+        return False
+
+    return True
+
+
 def validate(vin, raise_error=False):
     if not vin or len(vin) != 17:
         return False
