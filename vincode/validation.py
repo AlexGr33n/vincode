@@ -42,7 +42,7 @@ def valid(vin):
     return True
 
 
-def validate(vin, raise_error=False):
+def validate(vin, raise_error=False, additional_chars=None):
     if not vin or len(vin) != 17:
         return False
 
@@ -51,6 +51,11 @@ def validate(vin, raise_error=False):
         'J': '1', 'K': '2', 'L': '3', 'M': '4', 'N': '5', 'P': '7', 'R': '9',
         'S': '2', 'T': '3', 'U': '4', 'V': '5', 'W': '6', 'X': '7', 'Y': '8', 'Z': '9',
     }
+    
+    if additional_chars:
+        if len(additional_chars) > 9:
+            raise ValueError('Допустимо добавлять не более 9 символов')
+        trans_data.update((str(v), str(k)) for k, v in enumerate(additional_chars, 1))
 
     trans_vin = translate(vin, trans_data)
 

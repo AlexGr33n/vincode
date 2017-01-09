@@ -2,6 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 
 from pyparsing import *
+
 from .const import symbols, numbers, correct_chars
 from .raw import translate, prepare_string
 
